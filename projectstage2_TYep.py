@@ -1,3 +1,7 @@
+#!/usr/local/bin/python
+# coding: latin-1
+import os, sys
+
 Q1 = ''' In the Periodic table, there are 18 groups. Of those groups, groups numbers _a_, _b_, and _c_ contains the most elements that can be classified as metalloids or semi-metals.'''
 
 Q2 = '''_d_ is a process by which molecules are separated based on their respective charged groups.In this process, analyte molecules adhere to the column based on _e_ interactions. The _f_ phase or the analytes undergo electrostatic interactions with opposite charges on the _g_ phase. The immobile matrix consists of charged ionizable functional groups or _h_ which
@@ -56,7 +60,14 @@ def correct_ans(question_duplicate,replacement,user_input,word,replaced, answerk
 
 # function loops until correct answer is input
 def re_game(question_duplicate, answerkey, user_input, Ans_index, replacement):
+    tries = 0
+
     while user_input != answerkey[Ans_index]:
+        tries += 1
+        if tries == 3:
+            print " \n Let's move on shall we ... \n"
+            print question_duplicate
+            break
         print "Incorrect answer. Try again."
         print question_duplicate
         user_input = raw_input("What is " + replacement + "? ")
@@ -70,6 +81,7 @@ def play_game(question, questionkey, answerkey):
     replaced = []
     question_duplicate = question
     question = question.split()
+    tries = 0
     for word in question:
         # loops through all elements of list 'question'
         replacement = word_in_pos(word, questionkey)
@@ -87,6 +99,8 @@ def play_game(question, questionkey, answerkey):
                 # # prompt question with blanks replaced.
             else:
                 re_game(question_duplicate,answerkey,user_input,Ans_index, replacement)
+
+
                 # calls function re_game that loops until user inputs correct answer
         else:
             replaced.append(word)
